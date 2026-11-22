@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        //brute-force 
+        //   int n=nums.size();
+        //    set<vector<int>> uniqueTriplets;
+        //    for(int i=0;i<n;i++){
+        //       for(int j=i+1;j<n;j++){
+        //          for(int k=j+1;k<n;k++){
+        //              if(nums[i]+nums[j]+nums[k]==0){
+        //                 vector<int> triplet = {nums[i],  nums[j], nums[k]};
+        //                 sort(triplet.begin(), triplet.end()); 
+        //                 uniqueTriplets.insert(triplet);
+        //              }
+        //          }
+        //       }
+        //    }
+        //     return vector<vector<int>>(uniqueTriplets.begin(), uniqueTriplets.end());
+
+
+
+ vector<vector<int>> ans;
+
+        int n=nums.size();
+        
+          
+           sort(nums.begin(),nums.end());
+
+           for(int i=0;i<n;i++){
+             if(i>0 && nums[i]==nums[i-1]) continue;
+
+              if (nums[i] > 0) break;
+
+             int j=i+1;
+             int k=n-1;
+
+              while(j<k){
+                 int sum=nums[i]+nums[j]+nums[k];
+                  if(sum==0){
+                     ans.push_back({nums[i],nums[j],nums[k]});
+                     j++;
+                     k--;
+
+                       while(j<k && nums[j]==nums[j-1]){
+                         j++;
+                       }
+                        while(j<k && nums[k]==nums[k+1]){
+                             k--;
+                        }
+                  }else if(sum<0){
+                     j++;
+                  }else{
+                     k--;
+                  }
+              }
+           }
+          
+       return ans;
+    }
+};
